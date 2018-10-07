@@ -146,8 +146,7 @@ int main(){
 		scanf("%d", &value);
 	}
 	struct node * first_node = copy(first_start), *second_node = copy(second_start);
-	display(first_node);
-	display(second_node);
+	
 	struct node * sort = merge(&first_start, &second_start);
 	display(sort);
 	struct node * inter = intersection(&first_node, &second_node);
