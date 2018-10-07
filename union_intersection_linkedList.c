@@ -85,25 +85,39 @@ struct node * intersection(struct node ** first_node, struct node ** second_node
 		while(*first_node != NULL  && (*first_node) -> data < (*second_node) -> data){		
 			*first_node = (*first_node) -> next;
 		}
+		
 		ans = *first_node;
+		if((*first_node)->data == (*second_node)->data){			
+			*first_node = (*first_node)->next;
+			*second_node = (*second_node)->next;
+		}
+
 	}else if((*first_node)->data > (*second_node)->data){
 		while(*second_node != NULL && (*first_node) -> data >  (*second_node) -> data)
 			*second_node = (*second_node) -> next;
+
 		ans = *second_node;
+		if((*first_node)->data == (*second_node)->data){
+			*first_node = (*first_node)->next;
+			*second_node = (*second_node)->next;
+		}
 	}else{
+
 		ans = *first_node;
 		*first_node = (*first_node) -> next;
 		*second_node = (*second_node)->next;
 	}
+	inter = ans;
 	while(*first_node != NULL && *second_node != NULL){
 		if((*first_node) -> data < (*second_node) ->data){
 			*first_node = (*first_node) -> next;
 		}else if ((*first_node) -> data > (*second_node) -> data){
 			*second_node = (*second_node) -> next;
 		}else{
-			ans->next = *first_node;
+			inter->next = *first_node;
 			*first_node = (*first_node) -> next;
 			*second_node = (*second_node) -> next;
+			inter = inter->next;
 		}
 	}
 	return ans;
@@ -132,9 +146,12 @@ int main(){
 		scanf("%d", &value);
 	}
 	struct node * first_node = copy(first_start), *second_node = copy(second_start);
+	display(first_node);
+	display(second_node);
 	struct node * sort = merge(&first_start, &second_start);
-	struct node * inter = intersection(&first_node, &second_node);
 	display(sort);
+	struct node * inter = intersection(&first_node, &second_node);
+	
 	display(inter);
 	return 0;
 }
