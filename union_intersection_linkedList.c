@@ -120,6 +120,7 @@ struct node * intersection(struct node ** first_node, struct node ** second_node
 			inter = inter->next;
 		}
 	}
+	inter->next = NULL;
 	return ans;
 }
 struct node * copy(struct node * first_start){
@@ -148,9 +149,10 @@ int main(){
 	struct node * first_node = copy(first_start), *second_node = copy(second_start);
 	
 	struct node * sort = merge(&first_start, &second_start);
+	printf("Union of Linked Lists is : ");
 	display(sort);
 	struct node * inter = intersection(&first_node, &second_node);
-	
+	printf("Intersection of Linked Lists is : ");
 	display(inter);
 	return 0;
 }
