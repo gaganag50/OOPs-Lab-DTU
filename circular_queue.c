@@ -10,7 +10,7 @@ struct cqueue{
 };
 void insert(struct cqueue *cQueue, int value){
 	if(cQueue->front == (cQueue->rear + 1)%SIZE){
-		printf("circular queue is full\n");
+		printf("Circular Queue is full\n");
 		return;
 	}
 	cQueue->arr[cQueue->rear] = value;
@@ -18,7 +18,7 @@ void insert(struct cqueue *cQueue, int value){
 }
 int qdelete(struct cqueue *cQueue){
 	if(cQueue->front == cQueue->rear ){
-		printf("circular queue is empty\n");
+		printf("Circular Queue is empty\n");
 		return -1;
 	}
 	int value = cQueue->arr[cQueue->front];
@@ -26,7 +26,11 @@ int qdelete(struct cqueue *cQueue){
 	return value;
 }
 void traversal(struct cqueue cQueue){
-    int i;
+	int i;
+	if(cQueue.front == cQueue.rear ){
+		printf("Circular Queue is empty\n");
+		return;
+	}    
 	for(i = cQueue.front; i < (cQueue.rear ); ++i){
 		printf("%d ", cQueue.arr[i]);
 	}
@@ -36,7 +40,7 @@ int main(){
 	struct cqueue cQueue;
 	cQueue.front = 0;
 	cQueue.rear = 0;
-    char cont;
+	char cont;
 	do{
 		int choice;
 		printf("1--> Insertion");
@@ -46,16 +50,16 @@ int main(){
 		scanf("%d", &choice);
 		switch(choice){
 			case 1 : printf("\nEnter element to be inserted\n");
-                int value;
-				scanf("%d", &value);
-				insert(&cQueue, value);
-				break;
+			int value;
+			scanf("%d", &value);
+			insert(&cQueue, value);
+			break;
 			case 2 : printf("Element qdeleted is %d", qdelete(&cQueue));
-				break;
+			break;
 			case 3 : traversal(cQueue);
-				break;
+			break;
 			default : printf("Wrong choice");
-				break;
+			break;
 		}
 		printf("\nDo you want to continue(y/n)");
 		scanf(" %c", &cont);
