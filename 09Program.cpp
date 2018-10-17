@@ -1,38 +1,41 @@
-// Program to perform string operations using operator overloading 
+// Program to perform MyString operations using operator overloading 
 // = ==,<,> +
 #include<iostream>
 #include<string>
 using namespace std;
-class String{
+
+class MyString{
 	
 public:
 	string s;
-	String(string a){s = a;}
-	string getstring(){return s;}
-	String operator +(String b){
-		String ans;
-		int i, j;
-		
-		for( i = 0; i < s.size(); i++){
-			(ans.s).push_back(s[i]);
-		}
+	MyString(string a){
+		for(int i = 0; i < a.size(); ++i)
+			s.push_back(a[i]);
+	}
+
+	string getMyString(){
+		return s;
+	}
+
+	MyString operator +(MyString b){
+		MyString ans(s);
+		int j;
 		for( j = 0; j < b.s.size(); j++){
 			ans.s.push_back(b.s[j]);
 		}
 		return ans;
 	}
-	// copy
-	String operator=(String b){
-		String ans(string s);
+	
+	void operator =(MyString b){
+		
 		int i;
-		for(i = 0; i < s.size(); i++){
-			ans.s[i] = s[i];
+		for(i = 0; i < b.s.size(); i++){
+			s[i] = b.s[i];
 		}
 		
-		return ans;
 	}	
-	// equality
-	bool operator==(String b){
+	// // equality
+	bool operator==(MyString b){
 		int i;
 		for( i = 0; i < b.s.size(); i++){
 			if(b.s[i] != s[i])return false;
@@ -40,35 +43,39 @@ public:
 		return true;
 	}	
 	// less than
-	bool operator==(String b){
+	bool operator <(MyString b){
 		int i;
 		for( i = 0; i < b.s.size(); i++){
-			if(b.s[i] > s[i])return false;
+			if(b.s[i] < s[i])return false;
+			else if (b.s[i] > s[i])return true;
 		}
 		return true;
 	}	
 
 	// greater than
-	bool operator==(String b){
+	bool operator >(MyString b){
 		int i;
 		for( i = 0; i < b.s.size(); i++){
-			if(b.s[i] < s[i])return false;
+			if(b.s[i] > s[i])return false;
+			else if(b.s[i] < s[i])return true;
 		}
 		return true;
 	}	
 
-}
+};
 int main(){
 	string a, b;
 	cout << "Enter two strings\n";
 	cin >> a >> b;
-	String A(a), B(b);
-	String C = A+B, D = A;
-	bool e = (A == B);
-	cout << A.getstring() << "\n" 
-		<< B.getstring() << "\n" 
-		<< C.getstring() << "\n"
-		<< D.getstring() << "\n"
-		<< e << "\n";
+	MyString A(a), B(b);
+	MyString C = A+B, D = A;
+	bool e = (A == B), f = (A<B), g = (A>B);
+	cout << "First string: " << A.getMyString() << "\n" 
+		<< "Second string: " <<B.getMyString() << "\n" 
+		<< "First string + Second string: " <<C.getMyString() << "\n"
+		<< "D = A " << D.getMyString() << "\n"
+		<< "A == B " << e << "\n"
+		<< "A < B " << f << "\n"
+		<< "A > B " << g << "\n";
 
 }
