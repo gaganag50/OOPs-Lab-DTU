@@ -9,18 +9,20 @@ struct node * newNode(int no){
 	struct node * temp = (struct node *) malloc(sizeof(struct node));
 	temp->data = no;
 	temp->left = temp->right = NULL;
+	return temp;
 }
 
 struct node * insert(struct node * root, int no){
 	if(root == NULL){
-		root = newNode(no);
-		return root;
+		return newNode(no);
+		
 	}
-	if(root->data > no){
+	if(root->data > no)
 		// insert in left subtree
-		return insert(root->left, no);
-	}else
-	return insert(root->right, no);
+		root->left = insert(root->left, no);
+	else
+		root->right = insert(root->right, no);
+	return root;
 }
 void preOrdertraversal(struct node * root){
 	if(root == NULL){
@@ -110,8 +112,13 @@ struct node * deleteNode(struct node * root, int no){
 
 	return root;
 }
+
+
 int main(){
 	char cont;
+	struct node *root = NULL;
+
+
 	do{
 		
 		printf("1--> Insert\n");			
@@ -119,13 +126,13 @@ int main(){
 		printf("3--> Traversal\n");
 		printf("Enter your choice\n");
 		int choice;		scanf("%d", &choice);
-		struct node *root = NULL;
-		 int data;
+		int data;
 
 		switch(choice){
 			case 1 :
 					scanf("%d", &data);
-					root = insert(root, data);
+					if(root == NULL)root = insert(root, data);
+					else insert(root, data);
 					break;
 			case 2 : 
 					scanf("%d", &data);
@@ -143,7 +150,8 @@ int main(){
 					break;
 			default : printf("Wrong Choice\n");				
 		}
-		printf("Do you want to continue(y/n)\n");
+		printf("Do you want to continue(y/n): ");
 		scanf(" %c", &cont);
 	}while(cont == 'Y' || cont == 'y');
+	return  0;
 }
